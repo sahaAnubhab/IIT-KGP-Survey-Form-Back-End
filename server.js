@@ -124,8 +124,12 @@ app.post('/api/submit-survey', async (req, res) => {
   }
 });
 
+// Update this part in your server.js
 app.use(cors({
-  origin: 'https://iit-kgp-survey-form-front-end.vercel.app/', // Replace with your actual Vercel URL
-  methods: ['GET', 'POST'],
+  origin: ['http://localhost:5173', 'https://iit-kgp-survey-form-front-end.vercel.app'], 
+  methods: ['GET', 'POST', 'OPTIONS'],
   credentials: true
 }));
+
+// Ensure this line is present to handle the "Preflight" check
+app.options('*', cors());
