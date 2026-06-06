@@ -125,7 +125,7 @@ app.post('/api/submit-survey', async (req, res) => {
 });
 
 app.use(cors({
-  origin: 'https://your-app.vercel.app', // Replace with your actual Vercel URL
+  origin: 'https://iit-kgp-survey-form-front-end.vercel.app/', // Replace with your actual Vercel URL
   methods: ['GET', 'POST'],
   credentials: true
 }));
