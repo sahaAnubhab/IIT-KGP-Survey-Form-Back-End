@@ -123,3 +123,9 @@ app.post('/api/submit-survey', async (req, res) => {
     res.status(500).json({ error: "Failed to submit survey data" });
   }
 });
+
+app.use(cors({
+  origin: 'https://your-app.vercel.app', // Replace with your actual Vercel URL
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
