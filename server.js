@@ -125,11 +125,15 @@ app.post('/api/submit-survey', async (req, res) => {
 });
 
 // Update this part in your server.js
+// 1. Configure CORS middleware
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://iit-kgp-survey-form-front-end.vercel.app'], 
+  origin: [
+    'http://localhost:5173', 
+    'https://iit-kgp-survey-form-front-end.vercel.app'
+  ],
   methods: ['GET', 'POST', 'OPTIONS'],
   credentials: true
 }));
 
-// Ensure this line is present to handle the "Preflight" check
-app.options('*', cors());
+// 2. You do NOT need app.options('*', cors()); 
+// The middleware above already handles this for all routes.
