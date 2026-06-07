@@ -137,3 +137,31 @@ app.use(cors({
 
 // 2. You do NOT need app.options('*', cors()); 
 // The middleware above already handles this for all routes.
+
+// --- FETCH SURVEY DATA FOR DASHBOARD ---
+app.get('/api/survey-data', async (req, res) => {
+  try {
+    // We start from the 'respondents' table and fetch the related records 
+    // from 'survey_data' and 'choice_responses' using foreign keys.
+    const { data, error } = await supabase
+      .from('respondents')
+      .select(`
+        *,
+        survey_data ( responses ),
+        choice_responses ( card_number, selected_option )
+      `)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error("Supabase Error:", error);
+      return res.status(500).json({ error: "Failed to fetch data from database" });
+    }
+
+    // Send the structured data back to the frontend
+    res.status(200).json(data);
+
+  } catch (error) {
+    console.error("Server Error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
